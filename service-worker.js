@@ -1,27 +1,34 @@
-importScripts("/dextools-staging/precache-manifest.e7dcc65948df01dbe1ad8432daecf454.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+/**
+ * Welcome to your Workbox-powered service worker!
+ *
+ * You'll need to register this file in your web app and you should
+ * disable HTTP caching for this file too.
+ * See https://goo.gl/nhQhGp
+ *
+ * The rest of the code is auto-generated. Please don't update this file
+ * directly; instead, make changes to your Workbox build configuration
+ * and re-run your build process.
+ * See https://goo.gl/2aRDsh
+ */
 
-// This is the code piece that GenerateSW mode can't provide for us.
-// This code listens for the user's confirmation to update the app.
-self.addEventListener('message', (e) => {
-  if (!e.data) {
-    return;
-  }
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
-  switch (e.data) {
-    case 'skipWaiting':
-      self.skipWaiting();
-      break;
-    default:
-      // NOOP
-      break;
+importScripts(
+  "/precache-manifest.e9a796d0f34afd3f9af21536f657b9a4.js"
+);
+
+workbox.core.setCacheNameDetails({prefix: "dextools"});
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
   }
 });
 
-workbox.core.clientsClaim(); // Vue CLI 4 and Workbox v4, else
-// workbox.clientsClaim(); // Vue CLI 3 and Workbox v3.
-
-// The precaching code provided by Workbox.
+/**
+ * The workboxSW.precacheAndRoute() method efficiently caches and responds to
+ * requests for URLs in the manifest.
+ * See https://goo.gl/S9QRab
+ */
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
-// workbox.precaching.suppressWarnings(); // Only used with Vue CLI 3 and Workbox v3.
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
-
